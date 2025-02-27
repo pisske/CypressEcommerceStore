@@ -2,7 +2,7 @@ import Login_PO from "../support/pageObjects/Login_PO";
 
 describe("Login with session", () => {
   before(() => {
-    const loginname = Cypress.env("loginname");
+    const loginname = Cypress.env("loginname") || "VPisacic";
     const password = Cypress.env("password");
 
     cy.session("userLogin", () => {
@@ -11,7 +11,7 @@ describe("Login with session", () => {
       login_PO.fillLoginForm(loginname, password);
 
       cy.get("#loginFrm > fieldset > .btn").click();
-      // cy.url().should("include", "account/account");
+
       cy.getCookie("AC_SF_8CEFDA09D5").should("exist");
     });
   });
