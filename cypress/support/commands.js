@@ -1,3 +1,5 @@
+import Login_PO from "./pageObjects/Login_PO";
+const login_PO = new Login_PO();
 Cypress.Commands.add(
   "registration",
   (
@@ -28,4 +30,28 @@ Cypress.Commands.add(
 
 Cypress.Commands.add("navigate_to_automaton_store_home_page", () => {
   cy.visit("/");
+});
+
+Cypress.Commands.add("loginSession", () => {
+  cy.session(
+    "userLogin",
+    () => {
+      const loginname = Cypress.env("loginname") || "VPisacic";
+      const password = Cypress.env("password");
+      login_PO.visitLoginPage();
+      login_PO.fillLoginForm(loginname, password);
+      cy.get("#loginFrm > fieldset > .btn").click();
+      cy.getCookie("AC_SF_8CEFDA09D5").should("exist");
+    },
+    {
+      cacheAcrossSpecs: true,
+      validate() {
+        cy.visit(
+          "https://automationteststore.com/index.php?rt=account/account"
+        );
+
+        cy.contains("My Account", { timeout: 20000 }).should("be.visible");
+      },
+    }
+  );
 });
