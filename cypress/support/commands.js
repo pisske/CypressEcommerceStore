@@ -1,5 +1,8 @@
 import Login_PO from "./pageObjects/Login_PO";
 const login_PO = new Login_PO();
+import dotenv from "dotenv";
+
+dotenv.config();
 Cypress.Commands.add(
   "registration",
   (

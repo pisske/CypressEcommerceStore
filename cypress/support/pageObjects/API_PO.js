@@ -87,6 +87,51 @@ class API_PO {
         return response; // Returning the response for further assertions or processing if necessary
       });
   }
+
+  fetchUsers(accessToken) {
+    return cy.api({
+      method: "GET",
+      url: "https://dummyjson.com/users",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      failOnStatusCode: false,
+    });
+  }
+
+  refreshAccessToken(refreshToken) {
+    return cy.request({
+      method: "POST",
+      url: `https://dummyjson.com/users/refresh`,
+      body: {
+        refreshToken: refreshToken,
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+  getSingleUser(accessToken, id) {
+    return cy.api({
+      method: "GET",
+      url: `https://dummyjson.com/users/${id}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+  refreshAccessToken(refreshToken) {
+    return cy.request({
+      method: "POST",
+      url: `https://dummyjson.com/users/refresh`,
+      body: {
+        refreshToken: refreshToken,
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 }
 
 export default API_PO;

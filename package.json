@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "chance": "^1.1.12",
-    "cypress-plugin-xhr-toggle": "^1.2.1"
-  }
+    "cypress-plugin-xhr-toggle": "^1.2.1",
+    "dotenv": "^16.4.7"
+  },
+  "type": "module"
 }
